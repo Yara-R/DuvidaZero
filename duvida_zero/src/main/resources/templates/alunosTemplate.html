@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duvida Zero</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="images 2.png">
+
+</head>
+<body>
+    <header class="black-header">
+        <nav>
+            <div class="logo">
+                <a href="/home">Dúvida Zero</a>
+            </div>
+            <div class="page-links">
+                <li><a href="/professores">Professores</a></li>
+                <li><a href="/materias">Matérias</a></li>
+                <li><a href="/alunos">Alunos</a></li>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="banner">
+            <img src="images 2.png" alt="Banner">
+        </div>
+        <div class="busca">
+        <h2>Alunos</h2>
+        </div>
+    </div>
+        
+
+    <h1>Buscar</h1>
+    <form action="http://localhost:8080/alunos/buscar" method="GET">
+        <div>
+            <label for="cpfInput">CPF Aluno:</label>
+            <input type="text" id="cpfInput" name="cpf" required>
+        </div>
+        <div>
+            <button type="submit">Buscar</button>
+        </div>
+    </form>
+
+
+
+    <h1>Adicionar</h1>
+    <form action="/alunos/adicionar" method="POST">
+        <div>
+            <label for="cpf">CPF Aluno:</label>
+            <input type="text" id="cpf" name="cpf">
+
+            <label for="nome">nome:</label>
+            <input type="text" id="nome" name="nome">
+
+            <label for="contato">contato:</label>
+            <input type="text" id="contato" name="contato">
+
+            <label for="codigo_turma">Código da Turma:</label>
+            <input type="text" id="codigo_turma" name="codigo_turma">
+
+            <label for="grupo">Grupo:</label>
+            <input type="text" id="grupo" name="grupo">
+        </div>
+        
+        <div>
+            <label for="vestibular">Vestibulares Desejados:</label>
+            <input type="text" id="vestibular" name="vestibular">
+
+        </div>
+
+        <div>
+            <label for="nome_responsavel">Nome do Responsável:</label>
+            <input type="text" id="nome_responsavel" name="nome_responsavel">
+
+            <label for="contato_responsavel">Contato do Responsável:</label>
+            <input type="text" id="contato_responsavel" name="contato_responsavel">
+
+            <label for="colegio">Colégio:</label>
+            <input type="text" id="colegio" name="colegio">
+
+            <label for="ano_escolar">Série:</label>
+            <input type="text" id="ano_escolar" name="ano_escolar">
+
+            <label for="cpf_responsavel">CPF do Responsável:</label>
+            <input type="text" id="cpf_responsavel" name="cpf_responsavel">
+
+        </div>
+    
+        <div>
+            <button type="submit">Adicionar</button>
+        </div>
+    </form>
+
+    <h1>Editar</h1>
+
+    <form action="/alunos" method="POST">
+        <div>
+
+            <label for="cpf">CPF Aluno:</label>
+            <input type="text" id="cpf" name="cpf">
+
+        </div>
+
+        <div>
+            <label for="nome">nome:</label>
+            <input type="text" id="nome" name="nome">
+
+            <label for="contato">contato:</label>
+            <input type="text" id="contato" name="contato">
+
+            <label for="codigo_turma">Código da Turma:</label>
+            <input type="text" id="codigo_turma" name="codigo_turma">
+
+            <label for="grupo">Grupo:</label>
+            <input type="text" id="grupo" name="grupo">
+        </div>
+        
+        <div>
+            <label for="vestibular">Vestibulares Desejados:</label>
+            <input type="text" id="vestibular" name="vestibular">
+
+        </div>
+
+        <div>
+            <label for="nome_responsavel">Nome do Responsável:</label>
+            <input type="text" id="nome_responsavel" name="nome_responsavel">
+
+            <label for="contato_responsavel">Contato do Responsável:</label>
+            <input type="text" id="contato_responsavel" name="contato_responsavel">
+
+            <label for="colegio">Colégio:</label>
+            <input type="text" id="colegio" name="colegio">
+
+            <label for="ano_escolar">Série:</label>
+            <input type="text" id="ano_escolar" name="ano_escolar">
+
+            <label for="cpf_responsavel">CPF do Responsável:</label>
+            <input type="text" id="cpf_responsavel" name="cpf_responsavel">
+
+        </div>
+    
+        <div>
+            <button type="submit">Adicionar</button>
+        </div>
+    </form>
+
+    <h1>Deletar</h1>
+
+    <form action="http://localhost:8080/alunos/delete" method="DELETE">
+        <div>
+            <label for="cpfInput">CPF Aluno:</label>
+            <input type="text" id="cpfInput" name="cpf" required>
+        </div>
+        <div>
+            <button type="submit">Buscar</button>
+        </div>
+    </form>
+
+</body>
+</html>

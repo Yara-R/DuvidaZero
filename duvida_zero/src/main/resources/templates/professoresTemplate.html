@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duvida Zero</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="images 2.png">
+</head>
+<body>
+    <header class="black-header">
+        <nav>
+            <div class="logo">
+                <a href="/home">Dúvida Zero</a>
+            </div>
+            <div class="page-links">
+                <li><a href="/professores">Professores</a></li>
+                <li><a href="/materias">Matérias</a></li>
+                <li><a href="/alunos">Alunos</a></li>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="banner">
+            <img src="images 2.png" alt="Banner">
+        </div>
+        <div class="busca">
+        <h2>Professores</h2>
+        </div>
+    </div>
+
+
+    <h1>Buscar</h1>
+    <form action="http://localhost:8080/professores/buscar" method="GET">
+        <label for="cpfInput">CPF:</label>
+        <input type="text" id="cpfInput" name="cpf" required>
+        <button type="submit">Buscar</button>
+    </form>
+    
+
+    <h1>Adicionar</h1>
+    <form action="http://localhost:8080/professores/adicionar" method="GET">
+        <div>
+            <label for="cpf">CPF:</label>
+            <input type="text" id="CPF" name="CPF">
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade">
+
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro">
+
+            <label for="rua">Rua:</label>
+            <input type="text" id="rua" name="rua">
+
+            <label for="numero">Número:</label>
+            <input type="number" id="numero" name="numero">
+
+            <label for="apartamento">Apartamento:</label>
+            <input type="text" id="apartamento" name="apartamento">
+        </div>
+        <div>
+            <button type="submit">Adicionar</button>
+        </div>
+    </form>
+
+
+    <h1>Editar</h1>
+
+    <form action="/professores" method="POST">
+        <div>
+            <label for="cpf">CPF:</label>
+            <input type="text" id="CPF" name="CPF">
+        </div>
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade">
+
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro">
+
+            <label for="rua">Rua:</label>
+            <input type="text" id="rua" name="rua">
+
+            <label for="numero">Número:</label>
+            <input type="inter" id="numero" name="numero">
+
+            <label for="apartamento">Apartamento:</label>
+            <input type="text" id="apartamento" name="apartamento">
+        </div>
+        <div>
+            <button type="submit">Editar</button>
+        </div>
+    </form>
+
+    <h1>Deletar</h1>
+    <form action="http://localhost:8080/professores/deletar" method="GET">
+        <div>
+            <label for="cpfInputD">CPF:</label>
+            <input type="text" id="cpfInputD" name="cpf" required>
+        </div>
+        <div>
+            <button type="submit">Deletar</button>
+        </div>
+    </form>
+
+</body>
+</html>

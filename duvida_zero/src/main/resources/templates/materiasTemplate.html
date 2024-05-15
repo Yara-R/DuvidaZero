@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duvida Zero</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="images 2.png">
+
+</head>
+<body>
+    <header class="black-header">
+        <nav>
+            <div class="logo">
+                <a href="/home">Dúvida Zero</a>
+            </div>
+            <div class="page-links">
+                <li><a href="/professores">Professores</a></li>
+                <li><a href="/materias">Matérias</a></li>
+                <li><a href="/alunos">Alunos</a></li>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="banner">
+            <img src="images 2.png" alt="Banner">
+        </div>
+        <div class="busca">
+        <h2>Aulas</h2>
+        </div>
+    </div>
+
+    <h1>Buscar</h1>
+    <form action="http://localhost:8080/materias/buscar" method="GET">
+        <div>
+            <label for="codigoA">Código da Aula:</label>
+            <input type="text" id="codigoA" name="codigoA" required>
+        </div>
+        <div>
+            <button type="submit">Buscar</button>
+        </div>
+    </form>
+
+
+
+    <h1>Adicionar</h1>
+    <form action="/materias/buscar" method="POST">
+        <div>
+            <label for="codigoA">Código da Aula:</label>
+            <input type="text" id="codigoA" name="codigoA">
+
+            <label for="cronograma">Cronograma:</label>
+            <input type="text" id="cronograma" name="cronograma">
+
+            <label for="horario">Horario:</label>
+            <input type="text" id="horario" name="horario">
+        </div>
+        <div>
+            <label for="materia">Matéria:</label>
+            <input type="text" id="materia" name="materia">
+
+            <label for="apostilas">Apostilas:</label>
+            <input type="text" id="apostilas" name="apostilas">
+
+            <label for="questoes">Questões:</label>
+            <input type="text" id="questoes" name="questoes">
+        </div>
+    
+        <div>
+            <button type="submit">Adicionar</button>
+        </div>
+    </form>
+
+    <h1>Editar</h1>
+
+    <form action="/materias" method="POST">
+
+        <div>
+            <label for="codigoA">Código da Aula:</label>
+            <input type="text" id="codigoA" name="codigoA">
+        </div>
+
+        <div>
+            <label for="cronograma">Cronograma:</label>
+            <input type="text" id="cronograma" name="cronograma">
+
+            <label for="horario">Horario:</label>
+            <input type="text" id="horario" name="horario">
+        </div>
+
+        <div>
+            <label for="materia">Matéria:</label>
+            <input type="text" id="materia" name="materia">
+
+            <label for="apostilas">Apostilas:</label>
+            <input type="text" id="apostilas" name="apostilas">
+
+            <label for="questoes">Questões:</label>
+            <input type="text" id="questoes" name="questoes">
+        </div>
+    
+        <div>
+            <button type="submit">Adicionar</button>
+        </div>
+    </form>
+
+    <h1>Deletar</h1>
+
+    <form action="/materias" method="POST">
+        <div>
+            <label for="cpf">Código da Aula:</label>
+            <input type="text" id="codigoA" name="codigoA">
+        </div>
+        <div>
+            <button type="submit">Deletar</button>
+        </div> 
+    </form>
+
+</body>
+</html>

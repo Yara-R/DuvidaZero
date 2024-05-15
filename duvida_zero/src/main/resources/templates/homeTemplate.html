@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duvida Zero</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="images 2.png">
+
+</head>
+<body>
+    <header class="black-header">
+        <nav>
+            <div class="logo">
+                <a href="/home">Dúvida Zero</a>
+            </div>
+            <div class="page-links">
+                <li><a href="/professores">Professores</a></li>
+                <li><a href="/materias">Matérias</a></li>
+                <li><a href="/alunos">Alunos</a></li>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="banner">
+                <img src="images 2.png" alt="Banner">
+            </div>
+            
+            <div class="busca">
+                <h2>Procure por informações das turmas</h2>
+                <form action="http://localhost:8080/home/buscar" method="GET">
+                    <div>
+                        <input type="text" name="Turma" placeholder="Código da Turma">
+                        <input type="text" name="Aula" placeholder="Código da Aula">
+                    </div>
+                    <div>
+                        <button type="submit">Buscar</button>
+                    </div>
+                </form>
+
+            </div>
+
+        
+        </div>
+    </main>
+</body>
+</html>
