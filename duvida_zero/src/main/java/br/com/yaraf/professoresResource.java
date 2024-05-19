@@ -8,7 +8,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 import java.util.Optional;
 
@@ -54,31 +53,20 @@ public class professoresResource {
     
     @GET
     @Path("/adicionar")
-    public Response adicionarProfessor(ProfParticular professor) {
-        Optional<ProfParticular> optionalProfessor = service.adicionarProfessor(
-            professor.getCpf(),
-            professor.getNome(),
-            professor.getTelefone(),
-            professor.getEmail(),
-            professor.getCidade(),
-            professor.getBairro(),
-            professor.getRua(),
-            professor.getNumero(),
-            professor.getApartamento()
-        );
-
-        if (optionalProfessor.isPresent()) {
-            return Response.status(Response.Status.CREATED).entity(optionalProfessor.get()).build();
+    public String adicionarProfessor(@QueryParam("cpf") String cpf, @QueryParam("nome") String nome, @QueryParam("telefone") String telefone, @QueryParam("email") String email, @QueryParam("cidade") String cidade, @QueryParam("bairro") String bairro, @QueryParam("rua") String rua, @QueryParam("numero") Integer numero, @QueryParam("apartamento") String apartamento) {
+        Optional<ProfParticular> professorAdicionado = service.adicionarProfessor(cpf, nome, telefone, email, cidade, bairro, rua, numero, apartamento);
+        if (professorAdicionado.equals(professorAdicionado)) {
+            return "Professor adicionado com sucesso!";
         } else {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro ao adicionar professor.").build();
+            return "Não foi possível adicionar o professor.";
         }
     }
 
 
     @GET
     @Path("/editar")
-    public String editarProfessor(@QueryParam("nome") String nome, @QueryParam("cpf") String cpf) {
-        Optional<ProfParticular> professorAtualizado = service.editarProf(nome, cpf);
+    public String editarProfessor(@QueryParam("nome") String nome, @QueryParam("telefone") String telefone, @QueryParam("cpf") String cpf) {
+        Optional<ProfParticular> professorAtualizado = service.editarProf(nome, telefone, cpf);
         if (professorAtualizado.isPresent()) {
             return "Professor atualizado com sucesso!";
         } else {
@@ -87,17 +75,18 @@ public class professoresResource {
     }
 
 
+    @GET
+    @Path("/deletar")
+    public String deletarProf(@QueryParam("cpf") String cpf) {
+        Optional<ProfParticular> professorDeletado = service.deletarProf(cpf);
+        if (professorDeletado.isPresent()) {
+            return "Professor deletado com sucesso!";
+        } else {
+            return "Não foi possível deletar o professor.";
+        }
+    }
 
-//     @DELETE
-//     @Path("/deletar")
-//     public Response deletarProfessor(@QueryParam("cpf") String cpf) {
-//         boolean deletado = this.professoresService.deletarProfessor(cpf);
-//         if (deletado) {
-//             return Response.status(Response.Status.OK).entity("Professor deletado com sucesso").build();
-//         } else {
-//             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro ao deletar professor").build();
-//         }
-// }
+
 
 
    

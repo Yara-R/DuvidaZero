@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Optional;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -54,61 +53,61 @@ public class professoresService {
         return Optional.empty();
     }
 
+    
     public Optional<ProfParticular> adicionarProfessor(String cpf, String nome, String telefone, String email, String cidade, String bairro, String rua, int numero, String apartamento) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             String sql = "INSERT INTO Prof_particular (cpf, nome, telefone, email, cidade, bairro, rua, numero, apartamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-            try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, cpf);
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, cpf); 
                 statement.setString(2, nome);
                 statement.setString(3, telefone);
-                statement.setString(4, email);
+                statement.setString(4, email); 
                 statement.setString(5, cidade);
                 statement.setString(6, bairro);
-                statement.setString(7, rua);
+                statement.setString(7, rua); 
                 statement.setInt(8, numero);
                 statement.setString(9, apartamento);
     
                 int affectedRows = statement.executeUpdate();
+                
+                if (affectedRows == 0) { // Verifica se houve alguma linha afetada pela atualização
+                    ProfParticular professor = new ProfParticular();
+
+                    professor.setCpf(cpf);
+                    professor.setNome(nome); 
+                    professor.setTelefone(telefone);
+                    professor.setEmail(email);
+                    professor.setCidade(cidade);
+                    professor.setBairro(bairro);
+                    professor.setRua(rua);
+                    professor.setNumero(numero);
+                    professor.setApartamento(apartamento);
     
-                if (affectedRows > 0) {
-                    try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                        if (generatedKeys.next()) {
-                            ProfParticular professor = new ProfParticular();
-                            professor.setCpf(cpf);
-                            professor.setNome(nome);
-                            professor.setTelefone(telefone);
-                            professor.setEmail(email);
-                            professor.setCidade(cidade);
-                            professor.setBairro(bairro);
-                            professor.setRua(rua);
-                            professor.setNumero(numero);
-                            professor.setApartamento(apartamento);
-                            return Optional.of(professor);
-                        }
-                    }
+                    return Optional.of(professor);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.empty();
+        return Optional.empty(); // Retorna um Optional vazio se não houver professor atualizado
     }
 
     // Editar
 
-    public Optional<ProfParticular> editarProf(String nome, String cpf) {
+    public Optional<ProfParticular> editarProf(String nome, String telefone, String cpf) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "UPDATE Prof_particular SET nome = ? WHERE cpf = ?";
+            String sql = "UPDATE Prof_particular SET nome = ?, telefone = ? WHERE cpf = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, nome); // Nome a ser atualizado
-                statement.setString(2, cpf); // CPF do professor a ser atualizado
+                statement.setString(2, telefone);
+                statement.setString(3, cpf); // CPF do professor a ser atualizado
     
                 int affectedRows = statement.executeUpdate();
                 
                 if (affectedRows > 0) { // Verifica se houve alguma linha afetada pela atualização
                     ProfParticular professor = new ProfParticular();
                     professor.setNome(nome); // Define o novo nome no objeto Professor
+                    professor.setTelefone(telefone);
                     professor.setCpf(cpf); // Define o CPF no objeto Professor
     
                     return Optional.of(professor);
@@ -119,6 +118,32 @@ public class professoresService {
         }
         return Optional.empty(); // Retorna um Optional vazio se não houver professor atualizado
     }
+
+    // Deletar
+
+    public Optional<ProfParticular> deletarProf(String cpf) {
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            String sql = "DELETE FROM Prof_particular WHERE cpf = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                statement.setString(1, cpf); // CPF do professor a ser deletado
+    
+                int affectedRows = statement.executeUpdate();
+    
+                if (affectedRows > 0) { // Verifica se houve alguma linha afetada pela exclusão
+                    ProfParticular professor = new ProfParticular();
+
+                    professor.setCpf(cpf);
+                    return Optional.of(professor);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty(); // Retorna um Optional vazio se não houver professor deletado
+    }
+    
+    
     
 }
 

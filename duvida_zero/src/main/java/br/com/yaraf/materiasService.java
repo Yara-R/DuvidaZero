@@ -38,4 +38,59 @@ public class materiasService {
         }
         return Optional.empty();
     }
+
+    public Optional<Materias> adicionarAula(String codigoAula, String cronograma, String horario) {
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            String sql = "INSERT INTO Aulas (codigoA, cronograma, horario) VALUES (?, ?, ?)";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, codigoAula);
+                statement.setString(2, cronograma);
+                statement.setString(3, horario);
+
+                int affectedRows = statement.executeUpdate();
+
+                if (affectedRows == 0) {
+                
+                        Materias materias = new Materias();
+                        materias.setCodigoA(codigoAula);
+                        materias.setCronograma(cronograma);;
+                        materias.setHorario(horario);
+
+                        return Optional.of(materias);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+    }
+
+
+    public Optional<Materias> editarAula(String codigoAula, String cronograma, String horario) {
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            String sql = "UPDATE Aulas SET cronograma = ?, horario = ? WHERE codigoA = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                
+                statement.setString(1, cronograma);
+                statement.setString(2, horario);
+                statement.setString(3, codigoAula);
+    
+                int affectedRows = statement.executeUpdate();
+                
+                if (affectedRows > 0) { 
+                    Materias materias = new Materias();
+                        materias.setCodigoA(codigoAula);
+                        materias.setCronograma(cronograma);;
+                        materias.setHorario(horario);
+
+                        return Optional.of(materias);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
 }

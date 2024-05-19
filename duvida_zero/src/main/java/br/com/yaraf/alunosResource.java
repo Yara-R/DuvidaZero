@@ -2,16 +2,15 @@ package br.com.yaraf;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.Optional;
+
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
@@ -59,19 +58,15 @@ public class alunosResource {
     }
 
 
-
-    @DELETE
-    @Path("/delete")
-    public Response deleteAluno(@PathParam("cpf") String cpf) {
-        try {
-            alunosService.delete(cpf);
-            return Response.ok("Aluno deletado com sucesso.").build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                           .entity("Erro ao deletar o aluno: " + e.getMessage())
-                           .build();
+    @GET
+    @Path("/adicionar")
+    public String adicionarAlunos(@QueryParam("cpf") String cpf, @QueryParam("nome") String nome, @QueryParam("contato") String contato) {
+        Optional<Alunos> alunoAdicionado = alunosService.adicionarAlunos(cpf, nome, contato);
+        if (alunoAdicionado.equals(alunoAdicionado)) {
+            return "Aluno adicionado com sucesso!";
+        } else {
+            return "Não foi possível adicionar o aluno.";
         }
     }
-
     
 }

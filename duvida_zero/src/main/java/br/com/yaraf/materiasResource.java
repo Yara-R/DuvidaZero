@@ -40,5 +40,26 @@ public class materiasResource {
             return "Matéria não encontrada";
         }
     }
+
+    @GET
+    @Path("/adicionar")
+    public String adicionarAula(@QueryParam("codigoA") String codigoAula, @QueryParam("cronograma") String cronograma, @QueryParam("horario") String horario) {
+        Optional<Materias> aulaAdicionada = materiasService.adicionarAula(codigoAula, cronograma, horario);
+        if (aulaAdicionada.equals(aulaAdicionada)) {
+            return "Aula adicionada com sucesso!";
+        } else {
+            return "Não foi possível adicionar aula.";
+        }
+    }
     
+    @GET
+    @Path("/editar")
+    public String editarAula(@QueryParam("codigoA") String codigoAula, @QueryParam("cronograma") String cronograma, @QueryParam("horario") String horario) {
+        Optional<Materias> aulaAtualizada = materiasService.editarAula(codigoAula, cronograma, horario);
+        if (aulaAtualizada.isPresent()) {
+            return "Professor atualizado com sucesso!";
+        } else {
+            return "Não foi possível atualizar o professor.";
+        }
+    }
 }

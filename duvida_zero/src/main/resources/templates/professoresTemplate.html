@@ -30,78 +30,71 @@
         </div>
     </div>
 
+    <div class="formularios">
+        <h1>Buscar</h1>
+        <form action="http://localhost:8080/professores/buscar" method="GET">
+            <div class="infos">
+                <input type="text" name="cpf" placeholder="CPF">
+            </div>
+            <div>
+                <input type="submit" value="Buscar">
+            </div>
+        </form>
+        
 
-    <h1>Buscar</h1>
-    <form action="http://localhost:8080/professores/buscar" method="GET">
-        <label for="cpfInput">CPF:</label>
-        <input type="text" id="cpfInput" name="cpf" required>
-        <button type="submit">Buscar</button>
-    </form>
-    
-
-    <h1>Adicionar Professor</h1>
-    <form action="http://localhost:8080/professores/adicionar" method="POST">
-        <div>
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required>
-        </div>
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
-        <div>
-            <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone" required>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="cidade">Cidade:</label>
-            <input type="text" id="cidade" name="cidade" required>
-        </div>
-        <div>
-            <label for="bairro">Bairro:</label>
-            <input type="text" id="bairro" name="bairro" required>
-        </div>
-        <div>
-            <label for="rua">Rua:</label>
-            <input type="text" id="rua" name="rua" required>
-        </div>
-        <div>
-            <label for="numero">Número:</label>
-            <input type="number" id="numero" name="numero" required>
-        </div>
-        <div>
-            <label for="apartamento">Apartamento:</label>
-            <input type="text" id="apartamento" name="apartamento">
-        </div>
-        <div>
-            <button type="submit">Adicionar</button>
-        </div>
-    </form>
+        <h1>Adicionar</h1>
+        <form action="http://localhost:8080/professores/adicionar" method="GET">
+            <div class="infos">
+                <input type="text" name="cpf" placeholder="CPF">
+            
+                <input type="text" name="nome" placeholder="NOME" required>
+            
+                <input type="text" name="telefone" placeholder="TELEFONE" required>
+            
+                <input type="email" name="email" placeholder="EMAIL" required>
+            </div>
+            <div class="infos">
+                <input type="text" name="cidade" placeholder="CIDADE" required>
+            
+                <input type="text" name="bairro" placeholder="BAIRRO" required>
+            
+                <input type="text" name="rua" placeholder="RUA" required>
+            
+                <input type="number" name="numero" placeholder="NUMERO" required>
+            
+                <input type="text" name="apartamento" placeholder="APARTAMENTO">
+            </div>
+            <div>
+                <input type="submit" value="Adicionar">
+            </div>
+        </form>
 
 
-    <h1>Editar</h1>
+        <h1>Editar</h1>
 
-    <form action="http://localhost:8080/professores/editar" method="GET">
-        <input type="text" name="nome" placeholder="Novo Nome">
-        <input type="text" name="cpf" placeholder="CPF">
-        <input type="submit" value="Atualizar Nome">
-    </form>
+        <form action="http://localhost:8080/professores/editar" method="GET">
+            <div class="infos">
+                <input type="text" name="cpf" placeholder="CPF">
+            </div>
+            <div class="infos">
+                <input type="text" name="nome" placeholder="Novo Nome">
+                <input type="text" name="telefone" placeholder="Novo Telefone">
+            </div>
+            <div>
+                <input type="submit" value="Atualizar">
+            </div>
+        </form>
 
 
-    <h1>Deletar</h1>
-    <form action="http://localhost:8080/professores/deletar" method="DELETE">
-        <div>
-            <label for="cpfInputD">CPF:</label>
-            <input type="text" id="cpfInputD" name="cpf" required>
-        </div>
-        <div>
-            <button type="submit">Deletar</button>
-        </div>
-    </form>
-
+        <h1>Deletar</h1>
+        <form action="http://localhost:8080/professores/deletar" method="GET">
+            <div class="infos">
+                <input type="text" name="cpf" placeholder="CPF">
+            </div>
+            <div>
+                <input type="submit" value="Deletar">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -55,25 +56,55 @@ public class alunosService {
     }
     
 
-    public void delete(String cpf) {
-        
-        try (Connection conexao = DriverManager.getConnection(url, user, password)) {
+    public Optional<Alunos> adicionarAlunos(String cpf, String nome, String contato) {
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            String sql = "INSERT INTO alunos (cpf, nome, contato) VALUES (?, ?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, cpf); 
+                statement.setString(2, nome);
+                statement.setString(3, contato);
+    
+                int affectedRows = statement.executeUpdate();
+                
+                if (affectedRows == 0) { 
+                    Alunos alunos = new Alunos();
 
-            String sql = "DELETE FROM Vestibular_Desejado WHERE fk_prevestibular IN (SELECT id FROM PreVestibular WHERE cpf = ?); DELETE FROM Ensino_Medio WHERE cpf = ?; DELETE FROM PreVestibular WHERE cpf = ?; DELETE FROM alunos WHERE cpf = ?";
+                    alunos.setCpf(cpf);
+                    alunos.setNome(nome); 
+                    alunos.setContato(contato);
     
-            try (PreparedStatement statement = conexao.prepareStatement(sql)) {
-                statement.setString(1, cpf);
-                statement.setString(2, cpf);
-                statement.setString(3, cpf);
-                statement.setString(4, cpf);
     
-                int linhasAfetadas = statement.executeUpdate();
-                System.out.println("Linhas afetadas: " + linhasAfetadas);
-    
+                    return Optional.of(alunos);
+                }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+            e.printStackTrace();
         }
+        return Optional.empty(); 
     }
 
+    public Optional<Alunos> editarProf(String cpf, String nome, String contato) {
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            String sql = "UPDATE alunos SET nome = ?, contato = ? WHERE cpf = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, nome); 
+                statement.setString(2, contato);
+                statement.setString(3, cpf); 
+    
+                int affectedRows = statement.executeUpdate();
+                
+                if (affectedRows > 0) { 
+                    Alunos alunos = new Alunos();
+                    alunos.setNome(nome); 
+                    alunos.setContato(contato);
+                    alunos.setCpf(cpf); 
+    
+                    return Optional.of(alunos);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty(); 
+    }
 }
