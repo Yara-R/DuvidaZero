@@ -57,9 +57,20 @@ public class materiasResource {
     public String editarAula(@QueryParam("codigoA") String codigoAula, @QueryParam("cronograma") String cronograma, @QueryParam("horario") String horario) {
         Optional<Materias> aulaAtualizada = materiasService.editarAula(codigoAula, cronograma, horario);
         if (aulaAtualizada.isPresent()) {
-            return "Professor atualizado com sucesso!";
+            return "Aula atualizada com sucesso!";
         } else {
-            return "Não foi possível atualizar o professor.";
+            return "Não foi possível atualizar a Aula.";
+        }
+    }
+
+    @GET
+    @Path("/deletar")
+    public String deletarAula(@QueryParam("codigoA") String codigoAula) {
+        Optional<Materias> aulaDeletada = materiasService.deletarAula(codigoAula);
+        if (aulaDeletada.isPresent()) {
+            return "Aula deletada com sucesso!";
+        } else {
+            return "Não foi possível deletar a Aula.";
         }
     }
 }

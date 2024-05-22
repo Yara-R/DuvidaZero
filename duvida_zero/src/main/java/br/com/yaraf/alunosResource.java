@@ -69,4 +69,15 @@ public class alunosResource {
         }
     }
     
+
+    @GET
+    @Path("/editar")
+    public String editarAluno(@QueryParam("nome") String nome, @QueryParam("contato") String contato, @QueryParam("cpf") String cpf) {
+        Optional<Alunos> alunoAtualizado = alunosService.editarAluno(nome, contato, cpf);
+        if (alunoAtualizado.isPresent()) {
+            return "Aluno atualizado com sucesso!";
+        } else {
+            return "Não foi possível atualizar o aluno.";
+        }
+    }
 }

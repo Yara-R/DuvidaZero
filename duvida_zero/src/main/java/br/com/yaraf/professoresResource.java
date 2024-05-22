@@ -77,8 +77,8 @@ public class professoresResource {
 
     @GET
     @Path("/deletar")
-    public String deletarProf(@QueryParam("cpf") String cpf) {
-        Optional<ProfParticular> professorDeletado = service.deletarProf(cpf);
+    public String deletarProfessor(@QueryParam("cpf") String cpf) {
+        Optional<ProfParticular> professorDeletado = service.deletarProfessor(cpf);
         if (professorDeletado.isPresent()) {
             return "Professor deletado com sucesso!";
         } else {

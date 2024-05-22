@@ -22,7 +22,7 @@ public class alunosService {
         List<Alunos> alunosEncontrados = new ArrayList<>();
         
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "SELECT alunos.*, ENSINO_MEDIO.nome_responsavel, ENSINO_MEDIO.contato_responsavel, ENSINO_MEDIO.ano_escolar, ENSINO_MEDIO.colegio, VESTIBULAR_DESEJADO.vestibular, composta.codigo_turma FROM alunos LEFT JOIN ENSINO_MEDIO ON ENSINO_MEDIO.cpf = alunos.cpf LEFT JOIN PREVESTIBULAR ON PREVESTIBULAR.cpf = alunos.cpf LEFT JOIN VESTIBULAR_DESEJADO ON VESTIBULAR_DESEJADO.fk_prevestibular = PREVESTIBULAR.id LEFT JOIN composta ON composta.cpf = alunos.cpf WHERE alunos.cpf = ?";
+            String sql = "SELECT alunos.*, Ensino_Medio.nome_responsavel, Ensino_Medio.contato_responsavel, Ensino_Medio.ano_escolar, Ensino_Medio.colegio, VESTIBULAR_DESEJADO.vestibular, composta.codigo_turma FROM alunos LEFT JOIN Ensino_Medio ON Ensino_Medio.cpf = alunos.cpf LEFT JOIN PREVESTIBULAR ON PREVESTIBULAR.cpf = alunos.cpf LEFT JOIN VESTIBULAR_DESEJADO ON VESTIBULAR_DESEJADO.fk_prevestibular = PREVESTIBULAR.id LEFT JOIN composta ON composta.cpf = alunos.cpf WHERE alunos.cpf =?";
             
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, cpf);
@@ -83,7 +83,7 @@ public class alunosService {
         return Optional.empty(); 
     }
 
-    public Optional<Alunos> editarProf(String cpf, String nome, String contato) {
+    public Optional<Alunos> editarAluno(String nome, String contato, String cpf) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             String sql = "UPDATE alunos SET nome = ?, contato = ? WHERE cpf = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -107,4 +107,58 @@ public class alunosService {
         }
         return Optional.empty(); 
     }
+
+
+    public Optional<Alunos> deletarAluno(String cpf) {
+            try (Connection connection = DriverManager.getConnection(url, user, password)) {
+                // Iniciar a transação
+                connection.setAutoCommit(false);
+                
+                try {
+                    String sql1 = "DELETE FROM Ensino_medio WHERE cpf=?";
+                    String sql2 = "DELETE FROM PreVestibular WHERE cpf=?";
+                    String sql3 = "DELETE FROM alunos WHERE cpf=?";
+                    
+                    try (PreparedStatement statement1 = connection.prepareStatement(sql1);
+                         PreparedStatement statement2 = connection.prepareStatement(sql2);
+                         PreparedStatement statement3 = connection.prepareStatement(sql3)) {
+                        
+                        // Definir parâmetro para o primeiro comando DELETE
+                        statement1.setString(1, cpf);
+                        int affectedRows1 = statement1.executeUpdate();
+                        
+                        // Definir parâmetro para o segundo comando DELETE
+                        statement2.setString(1, cpf);
+                        int affectedRows2 = statement2.executeUpdate();
+
+                        statement3.setString(1, cpf);
+                        int affectedRows3 = statement3.executeUpdate();
+                        
+                        // Verificar se ambos os DELETEs afetaram linhas
+                        if (affectedRows1 > 0 || affectedRows2 > 0 || affectedRows3 > 0) {
+                            // Confirmar a transação
+                            connection.commit();
+                            
+                            Alunos alunos = new Alunos();
+                            alunos.setCpf(cpf);
+                            return Optional.of(alunos);
+
+                        } else {
+                            // Se nenhum DELETE afetou linhas, desfazer a transação
+                            connection.rollback();
+                        }
+                    } catch (SQLException e) {
+                        // Em caso de exceção, desfazer a transação
+                        connection.rollback();
+                        e.printStackTrace();
+                    }
+                } finally {
+                    // Restaurar o auto-commit para o estado padrão
+                    connection.setAutoCommit(true);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return Optional.empty();
+        }
 }

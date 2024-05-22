@@ -45,13 +45,13 @@
 
 
         <h1>Adicionar</h1>
-        <form action="http://localhost:8080/alunos/adicionar" method="POST">
+        <form action="http://localhost:8080/alunos/adicionar" method="GET">
             <div class="infos">
-                <input type="text" name="cpf" placeholder="CPF">
+                <input type="text" name="cpf" placeholder="CPF" required>
 
-                <input type="text" name="nome" placeholder="Nome do Aluno">
+                <input type="text" name="nome" placeholder="Nome do Aluno" required>
 
-                <input type="text" name="contato" placeholder="Contato">
+                <input type="text" name="contato" placeholder="Contato" required>
 
             <div class="infos"></div>
                 <input type="text" name="codigo_turma" placeholder="Código da Turma">
@@ -81,7 +81,7 @@
 
         <h1>Editar</h1>
 
-        <form action="http://localhost:8080/alunos/editar" method="POST">
+        <form action="http://localhost:8080/alunos/editar" method="GET">
             <div class="infos">
 
                 <input type="text" name="cpf" placeholder="CPF">
@@ -122,7 +122,7 @@
 
         <h1>Deletar</h1>
 
-        <form action="http://localhost:8080/alunos/delete" method="DELETE">
+        <form action="http://localhost:8080/alunos/delete" method="GET">
             <div class="infos">
                 <input type="text" name="cpf" placeholder="CPF">
             </div>

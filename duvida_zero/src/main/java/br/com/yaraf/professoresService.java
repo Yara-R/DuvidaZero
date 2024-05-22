@@ -121,26 +121,51 @@ public class professoresService {
 
     // Deletar
 
-    public Optional<ProfParticular> deletarProf(String cpf) {
+    public Optional<ProfParticular> deletarProfessor(String cpf) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "DELETE FROM Prof_particular WHERE cpf = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-
-                statement.setString(1, cpf); // CPF do professor a ser deletado
-    
-                int affectedRows = statement.executeUpdate();
-    
-                if (affectedRows > 0) { // Verifica se houve alguma linha afetada pela exclusão
-                    ProfParticular professor = new ProfParticular();
-
-                    professor.setCpf(cpf);
-                    return Optional.of(professor);
+            // Iniciar a transação
+            connection.setAutoCommit(false);
+            
+            try {
+                String sql1 = "DELETE FROM ensina WHERE cpf_prof_particular = ?";
+                String sql2 = "DELETE FROM Prof_particular WHERE cpf = ?";
+                
+                try (PreparedStatement statement1 = connection.prepareStatement(sql1);
+                     PreparedStatement statement2 = connection.prepareStatement(sql2)) {
+                    
+                    // Definir parâmetro para o primeiro comando DELETE
+                    statement1.setString(1, cpf);
+                    int affectedRows1 = statement1.executeUpdate();
+                    
+                    // Definir parâmetro para o segundo comando DELETE
+                    statement2.setString(1, cpf);
+                    int affectedRows2 = statement2.executeUpdate();
+                    
+                    // Verificar se ambos os DELETEs afetaram linhas
+                    if (affectedRows1 > 0 || affectedRows2 > 0) {
+                        // Confirmar a transação
+                        connection.commit();
+                        
+                        ProfParticular professor = new ProfParticular();
+                        professor.setCpf(cpf);
+                        return Optional.of(professor);
+                    } else {
+                        // Se nenhum DELETE afetou linhas, desfazer a transação
+                        connection.rollback();
+                    }
+                } catch (SQLException e) {
+                    // Em caso de exceção, desfazer a transação
+                    connection.rollback();
+                    e.printStackTrace();
                 }
+            } finally {
+                // Restaurar o auto-commit para o estado padrão
+                connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.empty(); // Retorna um Optional vazio se não houver professor deletado
+        return Optional.empty();
     }
     
     
