@@ -6,6 +6,7 @@ public class Home {
     private String nome;
     private String codigoA;
     private String codigoT;
+    private String AlunosPorTurma;
 
     public String getCpf() {
         return cpf;
@@ -37,6 +38,14 @@ public class Home {
 
     public void setCodigoT(String codigoT) {
         this.codigoT = codigoT;
+    }
+
+    public String getAlunosPorTurma(){
+        return AlunosPorTurma;
+    }
+
+    public void setAlunosPorTurma(String AlunosPorTurma) {
+        this.AlunosPorTurma = AlunosPorTurma;
     }
     
 }

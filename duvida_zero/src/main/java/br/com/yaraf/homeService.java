@@ -19,7 +19,7 @@ public class homeService {
 
     public Optional<Home> buscarHome(String codigoT, String codigoA) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "SELECT Turmas.codigoT, Aulas.codigoA, Prof_particular.cpf, Prof_particular.nome FROM Turmas JOIN ensina ON Turmas.codigoT = ensina.codigo_turma JOIN Aulas ON ensina.codigo_aula = Aulas.codigoA JOIN Prof_particular ON ensina.cpf_prof_particular = Prof_particular.cpf WHERE Turmas.codigoT = ? OR Aulas.codigoA = ?;";
+            String sql = "SELECT Turmas.codigoT, Aulas.codigoA, Prof_particular.cpf, Prof_particular.nome, COUNT(composta.codigo_turma) AS alunosporturma FROM Turmas JOIN ensina ON Turmas.codigoT = ensina.codigo_turma JOIN Aulas ON ensina.codigo_aula = Aulas.codigoA JOIN composta ON Turmas.codigoT = composta.codigo_turma JOIN Prof_particular ON ensina.cpf_prof_particular = Prof_particular.cpf WHERE Turmas.codigoT = ? OR Aulas.codigoA IN (SELECT codigoA FROM Aulas WHERE Aulas.codigoA = ?) GROUP BY Turmas.codigoT, Aulas.codigoA, Prof_particular.cpf, Prof_particular.nome;";
     
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, codigoT);
@@ -32,6 +32,7 @@ public class homeService {
                         home.setNome(resultSet.getString("nome"));
                         home.setCodigoA(resultSet.getString("codigoA"));
                         home.setCodigoT(resultSet.getString("codigoT"));
+                        home.setAlunosPorTurma(resultSet.getString("alunosporturma"));
                         return Optional.of(home);
                     }
                 }

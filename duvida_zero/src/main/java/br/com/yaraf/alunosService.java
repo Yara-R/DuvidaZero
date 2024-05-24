@@ -22,7 +22,7 @@ public class alunosService {
         List<Alunos> alunosEncontrados = new ArrayList<>();
         
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "SELECT alunos.*, Ensino_Medio.nome_responsavel, Ensino_Medio.contato_responsavel, Ensino_Medio.ano_escolar, Ensino_Medio.colegio, VESTIBULAR_DESEJADO.vestibular, composta.codigo_turma FROM alunos LEFT JOIN Ensino_Medio ON Ensino_Medio.cpf = alunos.cpf LEFT JOIN PREVESTIBULAR ON PREVESTIBULAR.cpf = alunos.cpf LEFT JOIN VESTIBULAR_DESEJADO ON VESTIBULAR_DESEJADO.fk_prevestibular = PREVESTIBULAR.id LEFT JOIN composta ON composta.cpf = alunos.cpf WHERE alunos.cpf =?";
+            String sql = "SELECT alunos.*, Ensino_Medio.nome_responsavel, Ensino_Medio.contato_responsavel, Ensino_Medio.ano_escolar, Ensino_Medio.colegio, VESTIBULAR_DESEJADO.vestibular, composta.codigo_turma FROM alunos LEFT JOIN PreVestibular ON alunos.cpf = PreVestibular.cpf LEFT JOIN Vestibular_Desejado ON PreVestibular.id = Vestibular_Desejado.fk_prevestibular LEFT JOIN Ensino_Medio ON alunos.cpf = Ensino_Medio.cpf LEFT JOIN composta ON composta.cpf = alunos.cpf WHERE alunos.cpf =?";
             
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, cpf);
@@ -39,7 +39,7 @@ public class alunosService {
 
                         alunos.setNomeResponsavel(resultSet.getString("nome_responsavel"));
                         alunos.setContatoResponsavel(resultSet.getString("contato_responsavel"));
-                        alunos.setAnoEscolar(resultSet.getInt("ano_escolar"));
+                        alunos.setAnoEscolar(resultSet.getString("ano_escolar"));
                         alunos.setColegio(resultSet.getString("colegio"));
                         
                         alunos.setCodigoTurma(resultSet.getString("codigo_turma"));

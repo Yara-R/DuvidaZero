@@ -43,7 +43,7 @@ public class alunosResource {
             for (Alunos alunos : alunosEncontrados) {
                 resultBuilder.append(String.format(
                     "CPF: %s\nNome: %s\nContato: %s\nVestibular Desejado: %s\n" +
-                    "Nome do Responsável: %s\nContato do Responsável: %s\nAno Escolar: %d\nColégio: %s\n" +
+                    "Nome do Responsável: %s\nContato do Responsável: %s\nAno Escolar: %s\nColégio: %s\n" +
                     "Turma: %s\n\n",
                     alunos.getCpf(), alunos.getNome(), alunos.getContato(),
                     alunos.getVestibularDesejado(), alunos.getNomeResponsavel(), alunos.getContatoResponsavel(),

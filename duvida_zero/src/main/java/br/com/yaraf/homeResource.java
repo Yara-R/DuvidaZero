@@ -37,8 +37,8 @@ public class homeResource {
         if (optionalHome.isPresent()) {
             Home home = optionalHome.get();
             return String.format(
-                "CPF do Professor(a): %s\nNome do Professor(a): %s\nCódigo da Turma: %s\nCódigo da Aula: %s\n",
-                home.getCpf(), home.getNome(), home.getCodigoT(), home.getCodigoA()
+                "CPF do Professor(a): %s\nNome do Professor(a): %s\nCódigo da Turma: %s\nCódigo da Aula: %s\nQuantidade de alunos: %s",
+                home.getCpf(), home.getNome(), home.getCodigoT(), home.getCodigoA(), home.getAlunosPorTurma()
             );
         } else {
             return "Turma ou aula não encontrada";

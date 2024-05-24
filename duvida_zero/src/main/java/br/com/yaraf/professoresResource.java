@@ -40,8 +40,8 @@ public class professoresResource {
         if (optionalProf.isPresent()) {
             ProfParticular professor = optionalProf.get();
             return String.format(
-                "CPF: %s\nNome: %s\nTelefone: %s\nEmail: %s\nCidade: %s\nBairro: %s\nRua: %s\nNúmero: %d\nApartamento: %s",
-                professor.getCpf(), professor.getNome(), professor.getTelefone(), professor.getEmail(),
+                "CPF: %s\nNome: %s\nTurmas: %s\nTelefone: %s\nEmail: %s\nCidade: %s\nBairro: %s\nRua: %s\nNúmero: %d\nApartamento: %s",
+                professor.getCpf(), professor.getNome(), professor.getTurmaPorProfessor(),professor.getTelefone(), professor.getEmail(),
                 professor.getCidade(), professor.getBairro(), professor.getRua(), professor.getNumero(),
                 professor.getApartamento()
             );
@@ -85,8 +85,6 @@ public class professoresResource {
             return "Não foi possível deletar o professor.";
         }
     }
-
-
 
 
    

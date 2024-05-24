@@ -20,19 +20,14 @@ public class professoresService {
     public Optional<ProfParticular> buscarPorCpf(String cpf) {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             
-            String sql = "SELECT * FROM Prof_particular WHERE cpf = ?";
+            String sql = "SELECT Prof_particular.*, COUNT(ensina.cpf_prof_particular) AS turmasporprofessor FROM Prof_particular LEFT JOIN ensina ON Prof_particular.cpf = ensina.cpf_prof_particular WHERE Prof_particular.cpf = ? GROUP BY Prof_particular.cpf;";
 
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                
                 statement.setString(1, cpf);
-
+    
                 try (ResultSet resultSet = statement.executeQuery()) {
-
-
                     if (resultSet.next()) {
-
                         ProfParticular professor = new ProfParticular();
-
                         professor.setCpf(resultSet.getString("cpf"));
                         professor.setNome(resultSet.getString("nome"));
                         professor.setTelefone(resultSet.getString("telefone"));
@@ -42,7 +37,8 @@ public class professoresService {
                         professor.setRua(resultSet.getString("rua"));
                         professor.setNumero(resultSet.getInt("numero"));
                         professor.setApartamento(resultSet.getString("apartamento"));
-
+                        professor.setTurmaPorProfessor(resultSet.getInt("turmasporprofessor"));
+    
                         return Optional.of(professor);
                     }
                 }

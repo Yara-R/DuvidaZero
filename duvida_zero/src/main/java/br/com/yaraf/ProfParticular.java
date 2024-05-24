@@ -10,6 +10,7 @@ public class ProfParticular {
     private String rua;
     private int numero;
     private String apartamento;
+    private int TurmaPorProfessor;
 
     public String getCpf() {
         return cpf;
@@ -81,5 +82,13 @@ public class ProfParticular {
 
     public void setApartamento(String apartamento) {
         this.apartamento = apartamento;
+    }
+
+    public int getTurmaPorProfessor(){
+        return TurmaPorProfessor;
+    }
+
+    public void setTurmaPorProfessor(int TurmaPorProfessor){
+        this.TurmaPorProfessor = TurmaPorProfessor;
     }
 }

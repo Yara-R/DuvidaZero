@@ -9,7 +9,7 @@ public class Alunos {
     
     private String nomeResponsavel;
     private String contatoResponsavel;
-    private int anoEscolar;
+    private String anoEscolar;
     private String colegio;
 
     private String codigoTurma;
@@ -64,11 +64,11 @@ public class Alunos {
         this.contatoResponsavel = contatoResponsavel;
     }
 
-    public int getAnoEscolar() {
+    public String getAnoEscolar() {
         return anoEscolar;
     }
 
-    public void setAnoEscolar(int anoEscolar) {
+    public void setAnoEscolar(String anoEscolar) {
         this.anoEscolar = anoEscolar;
     }
 

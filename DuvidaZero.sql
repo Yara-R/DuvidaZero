@@ -1,7 +1,7 @@
 CREATE DATABASE DuvidaZero;
 
 CREATE TABLE Prof_particular (
-    cpf VARCHAR(14) PRIMARY KEY,
+    cpf VARCHAR(14) UNIQUE PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     telefone VARCHAR(20),
     email VARCHAR(50),
@@ -12,8 +12,10 @@ CREATE TABLE Prof_particular (
     apartamento VARCHAR(20)
 );
 
+
+
 CREATE TABLE Aulas (
-    codigoA VARCHAR(20) UNIQUE,
+    codigoA UNIQUE VARCHAR(20) UNIQUE,
     cronograma TEXT,
     horario VARCHAR(20)
 );
@@ -62,6 +64,22 @@ CREATE TABLE ensina (
     CONSTRAINT fk_turma FOREIGN KEY (codigo_turma) REFERENCES Turmas(codigoT),
     CONSTRAINT fk_aula FOREIGN KEY (codigo_aula) REFERENCES Aulas(codigoA)
 );
+
+DELIMITER //
+
+CREATE TRIGGER backup_ensina
+BEFORE DELETE ON ensina
+FOR EACH ROW
+BEGIN
+    INSERT INTO ensina_backup (cpf_prof_particular, codigo_turma, codigo_aula)
+    VALUES (OLD.cpf_prof_particular, OLD.codigo_turma, OLD.codigo_aula);
+END;
+//
+
+DELIMITER ;
+
+DROP trigger backup_prof_particular;
+DROP trigger backup_ensina;
 
 CREATE TABLE alunos (
     cpf VARCHAR(14) UNIQUE,
