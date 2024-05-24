@@ -15,7 +15,7 @@ CREATE TABLE Prof_particular (
 
 
 CREATE TABLE Aulas (
-    codigoA UNIQUE VARCHAR(20) UNIQUE,
+    codigoA VARCHAR(20) UNIQUE,
     cronograma TEXT,
     horario VARCHAR(20)
 );
@@ -96,10 +96,11 @@ CREATE TABLE composta (
 
 CREATE TABLE recomendam (
     cpf VARCHAR(14),
-    CONSTRAINT Aluno_recomenda FOREIGN KEY (cpf) REFERENCES alunos(cpf),
-    CONSTRAINT Aluno_recomendado FOREIGN KEY (cpf) REFERENCES alunos(cpf),
-    PRIMARY KEY(cpf)
+    cpf_recomendado VARCHAR(14), -- Adicionando a definição da coluna
+    CONSTRAINT Aluno_recomenda PRIMARY KEY(cpf), -- Movendo a definição da chave primária para cá
+    CONSTRAINT FK_Aluno_recomenda FOREIGN KEY (cpf) REFERENCES alunos(cpf)
 );
+
 
 CREATE TABLE PreVestibular (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -126,7 +127,6 @@ CREATE TABLE Ensino_Medio(
 
 
 
--- Exemplos de dados para a tabela Prof_particular (todos de Pernambuco)
 INSERT INTO Prof_particular (cpf, nome, telefone, email, cidade, bairro, rua, numero, apartamento)
 VALUES
 ('059.843.524-78', 'Yara Faran', '(81) 995594885', 'yri@cesar.school', 'Recife', 'Boa Viagem', 'rua Setúbal', 1314, 'Apto 101'),
@@ -135,7 +135,7 @@ VALUES
 ('222.333.444-33', 'Marcos Santos', '(81) 987654321', 'marcos.santos@email.com', 'Recife', 'Boa Viagem', 'Rua dos Girassóis', 789, 'Apto 404'),
 ('333.444.555-44', 'Larissa Oliveira', '(81) 999999999', 'larissa.oliveira@email.com', 'Olinda', 'Cidade Tabajara', 'Avenida Central', 101, 'Apto 202');
 
--- Exemplos de dados para a tabela Aulas
+
 INSERT INTO Aulas (codigoA, cronograma, horario)
 VALUES
 ('MAT001', 'Semana 1 ...; Semana 2...; Semana 3...', 'Segunda 15h-16h'),
@@ -149,9 +149,7 @@ VALUES
 ('MAT004', 'Semana 1 ...; Semana 2...; Semana 3...', 'Quarta, 14h-16h'),
 ('FIS003', 'Semana 1 ...; Semana 2...; Semana 3...', 'Sexta, 9h-11h');
 
--- Exemplos de dados para as tabelas Matematica, Fisica e Ingles
 
--- Exemplos de dados para a tabela Matematica
 INSERT INTO Matematica (codigoA, apostilas, questoes)
 VALUES
 ('MAT001', 'Apostilas de Matemática 1', 'Questões...'),
@@ -159,31 +157,32 @@ VALUES
 ('MAT003', 'Apostilas de Matemática 3', 'Questões ...'),
 ('MAT004', 'Apostilas de Matemática 4', 'Questões ...');
 
--- Exemplos de dados para a tabela Fisica
+
 INSERT INTO Fisica (codigoA, formulas, apostilas, questoes)
 VALUES
 ('FIS001', 'Fórmulas de Física...', 'Apostilas de Física...', 'Questões...'),
 ('FIS002', 'Fórmulas de Física...', 'Apostilas de Física...', 'Questões...'),
 ('FIS003', 'Fórmulas de Física...', 'Apostilas de Física...', 'Questões...');
 
--- Exemplos de dados para a tabela Ingles
+
 INSERT INTO Ingles (codigoA, apostilas, questoes)
 VALUES
 ('ING001', 'Apostilas de Inglês...', 'Questões...'),
 ('ING002', 'Apostilas de Inglês...', 'Questões...'),
 ('ING003', 'Apostilas de Inglês...', 'Questões...');
--- Exemplos de dados para a tabela fontes_de_apoio
+
+
 INSERT INTO fontes_de_apoio (fk_Ingles_fk_Aulas_codigo, referencia)
 VALUES 
 ('ING001', 'pt.duolingo.com'),
 ('ING002', 'www.todamateria.com.br/verbos-regulares-e-irregulares-no-ingles/'),
 ('ING003', 'dictionary.cambridge.org/pt/dicionario/ingles-portugues/');
 
--- Exemplos de dados para a tabela Turmas
+
 INSERT INTO Turmas (codigoT)
 VALUES ('TURMA001'), ('TURMA002'), ('TURMA003'), ('TURMA004'), ('TURMA005'), ('TURMA006');
 
--- Exemplos de dados para a tabela ensina
+
 INSERT INTO ensina (cpf_prof_particular, codigo_turma, codigo_aula)
 VALUES
 ('059.843.524-78', 'TURMA001', 'MAT001'),
@@ -193,7 +192,7 @@ VALUES
 ('222.333.444-33', 'TURMA005', 'FIS002'),
 ('333.444.555-44', 'TURMA006', 'ING002');
 
--- Exemplos de dados para a tabela alunos (todos de Pernambuco)
+
 INSERT INTO alunos (cpf, nome, contato)
 VALUES
 ('111.222.333-00', 'Rebeka Albuquerque', '(81) 99842-0957'),
@@ -203,7 +202,7 @@ VALUES
 ('666.777.888-99', 'Paulo Pereira', '(81) 987654321'),
 ('777.888.999-00', 'Amanda Souza', '(81) 999999999');
 
--- Exemplos de dados para a tabela composta
+
 INSERT INTO composta (codigo_turma, cpf)
 VALUES
 ('TURMA001', '111.222.333-00'),
@@ -213,21 +212,21 @@ VALUES
 ('TURMA005', '666.777.888-99'),
 ('TURMA006', '777.888.999-00');
 
--- Exemplos de dados para a tabela recomendam
-INSERT INTO recomendam (cpf)
-VALUES
-('111.222.333-00'), ('444.555.666-00'),
-('222.333.444-11'), ('555.666.777-22'),
-('666.777.888-99'), ('777.888.999-00');
 
--- Exemplos de dados para a tabela PreVestibular
+INSERT INTO recomendam (cpf, cpf_recomendado)
+VALUES
+('111.222.333-00', '444.555.666-00'),
+('222.333.444-11', '555.666.777-22'),
+('666.777.888-99', '777.888.999-00');
+
+
 INSERT INTO PreVestibular (cpf)
 VALUES
 ('111.222.333-00'), ('444.555.666-00'),
 ('222.333.444-11'), ('555.666.777-22'),
 ('666.777.888-99'), ('777.888.999-00');
 
--- Exemplos de dados para a tabela Vestibular_Desejado
+
 INSERT INTO Vestibular_Desejado (fk_prevestibular, vestibular)
 VALUES
 (1, 'ENEM'),
@@ -237,7 +236,7 @@ VALUES
 (5, 'ENEM'),
 (6, 'ENEM');
 
--- Exemplos de dados para a tabela Ensino_Medio (todos de Pernambuco)
+
 INSERT INTO Ensino_Medio (nome_responsavel, contato_responsavel, ano_escolar, colegio, cpf)
 VALUES
 ('Maria Oliveira', '(81) 5555-5555', '2º ano', 'Colégio Santa Maria', '111.222.333-00'),
