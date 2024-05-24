@@ -15,7 +15,7 @@
 </p>
 
 
-# DúvidaZero
+# Dúvida Zero
 
 Este é o repositório da aplicação web do Cursinho Duvida Zero, desenvolvida em Java com o framework Quarkus. O sistema tem como objetivo principal gerenciar informações relacionadas a professores, alunos e aulas, facilitando as operações do cursinho e oferecendo suporte completo para suas atividades educacionais.
 
