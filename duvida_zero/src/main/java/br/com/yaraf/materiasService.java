@@ -43,7 +43,6 @@ public class materiasService {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             String sql1 = "INSERT INTO Aulas (codigoA, cronograma, horario) VALUES (?, ?, ?)";
 
-// String sql2 = "INSERT INTO ? (apostilas, quastoes) VALUES (?, ?)";
 
             try (PreparedStatement statement1 = connection.prepareStatement(sql1)) {
                 statement1.setString(1, codigoAula);
