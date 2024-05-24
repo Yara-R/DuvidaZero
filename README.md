@@ -17,4 +17,42 @@
 
 # DúvidaZero
 
-Este é o repositorio do portal interno do cursinho DuvidaZero, aqui é possivel encontrar informações sobre os professores, alunos e as aulas ministradas nele.
+Este é o repositório da aplicação web do Cursinho Duvida Zero, desenvolvida em Java com o framework Quarkus. O sistema tem como objetivo principal gerenciar informações relacionadas a professores, alunos e aulas, facilitando as operações do cursinho e oferecendo suporte completo para suas atividades educacionais.
+
+## Software Necessário
+
+  - JDK 21 ou superior
+  - Maven
+  - MySQL
+
+
+
+## Dependências
+
+As dependências da aplicação são gerenciadas pelo Maven e estão definidas no arquivo pom.xml. Não é necessário instalar nada manualmente; todas as dependências serão resolvidas automaticamente durante o build.
+
+
+
+## Configuração
+
+A aplicação utiliza um banco de dados MySQL. Certifique-se de configurar as propriedades de conexão nos arquivos Service.java localizados no diretorio 'duvida_zero/src/main/java/br/com/yaraf'
+
+
+
+## Executando a Aplicação
+
+Para executar a aplicação localmente, siga os passos abaixo:
+
+
+
+### Clone o repositório:
+
+    git clone https://github.com/Yara-R/DuvidaZero.git
+    cd ./DuvidaZero
+    cd ./duvida_zero
+
+
+
+### Compile e inicie a aplicação:
+
+    ./mvnw compile quarkus:dev
