@@ -56,3 +56,10 @@ Para executar a aplicação localmente, siga os passos abaixo:
 ### Compile e inicie a aplicação:
 
     ./mvnw compile quarkus:dev
+
+### Acesse a interface web:
+
+
+No seu navegador acesse:
+
+    http://localhost:8080/home
