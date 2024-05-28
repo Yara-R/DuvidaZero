@@ -65,21 +65,27 @@ CREATE TABLE ensina (
     CONSTRAINT fk_aula FOREIGN KEY (codigo_aula) REFERENCES Aulas(codigoA)
 );
 
+
+
+CREATE TABLE backup_ensina (
+    cpf_prof_particular VARCHAR(14),
+    codigo_turma VARCHAR(20),
+    codigo_aula VARCHAR(20)
+);
+
+
 DELIMITER //
 
 CREATE TRIGGER backup_ensina
 BEFORE DELETE ON ensina
 FOR EACH ROW
 BEGIN
-    INSERT INTO ensina_backup (cpf_prof_particular, codigo_turma, codigo_aula)
+    INSERT INTO backup_ensina (cpf_prof_particular, codigo_turma, codigo_aula)
     VALUES (OLD.cpf_prof_particular, OLD.codigo_turma, OLD.codigo_aula);
 END;
 //
 
 DELIMITER ;
-
-DROP trigger backup_prof_particular;
-DROP trigger backup_ensina;
 
 CREATE TABLE alunos (
     cpf VARCHAR(14) UNIQUE,
